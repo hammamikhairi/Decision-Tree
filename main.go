@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	csvfile, err := os.Open("../Data/train.csv")
+	csvfile, err := os.Open("Data/train.csv")
 	if err != nil {
 		panic(err)
 	}
@@ -32,12 +32,17 @@ func main() {
 		panic(err)
 	}
 
-	tree := Dtree.TreeInit(Y, f.Select([]string{"Age", "Fare"}), 3, 20)
+	tree := Dtree.TreeInit(Y, f.Select([]string{"Age", "Fare"}), 2, 20)
 
 	tree.Sprout()
 
 	tree.Print()
 
-	fmt.Println(tree.Predict())
+	df := dataframe.New(
+		series.New([]string{"20", "15"}, series.String, "Age"),
+		series.New([]float64{53.025, 14.0}, series.Float, "Fare"),
+	)
+
+	fmt.Println(tree.Predict(df))
 
 }
