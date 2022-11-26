@@ -160,13 +160,17 @@ func (nd *node) sprout() {
 func (nd *node) print(padding int) {
 	spaces := strings.Repeat("-", padding*nd.depth)
 	fmt.Print(spaces)
-	fmt.Println(" Split rule : ", nd.data.rule)
+	if nd.data.rule == "ROOT" {
+		fmt.Println("Root")
+	} else {
+		fmt.Println(" Split rule : ", nd.data.rule)
+	}
 	fmt.Print(strings.Repeat(" ", padding*nd.depth))
-	fmt.Println("   | GINI impurity of the node: ", nd.data.giniImpurity)
+	fmt.Println("   | GINI impurity : ", nd.data.giniImpurity)
 	fmt.Print(strings.Repeat(" ", padding*nd.depth))
-	fmt.Printf("   | Class distribution in the node: {0: %d, 1: %d}\n", nd.data.counts["0"], nd.data.counts["1"])
+	fmt.Printf("   | Class distribution : {0: %d, 1: %d}\n", nd.data.counts["0"], nd.data.counts["1"])
 	fmt.Print(strings.Repeat(" ", padding*nd.depth))
-	fmt.Println("   | Predicted class: ", nd.data.yhat)
+	fmt.Println("   | Predicted class : ", nd.data.yhat)
 
 	if nd.left != nil {
 		nd.left.print(padding + 2)
