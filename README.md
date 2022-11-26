@@ -15,40 +15,40 @@ Decision Tree is the most powerful and popular tool for classification and predi
 package main
 
 import (
-	"fmt"
-	"os"
+  "fmt"
+  "os"
 
-	Dtree "DecisionTree/DTree"
+  Dtree "DecisionTree/DTree"
 
-	"github.com/go-gota/gota/dataframe"
-	"github.com/go-gota/gota/series"
+  "github.com/go-gota/gota/dataframe"
+  "github.com/go-gota/gota/series"
 )
 
 func main() {
 
   // Load data
-	csvfile, err := os.Open("Data/train.csv")
-	if err != nil {
-		panic(err)
-	}
+  csvfile, err := os.Open("Data/train.csv")
+  if err != nil {
+    panic(err)
+  }
 
   // convert data into a dataframe
-	f := dataframe.ReadCSV(csvfile)
+  f := dataframe.ReadCSV(csvfile)
 
   // chose the column to train on
-	Y, err := f.Col("Survived").Int()
-	if err != nil {
-		panic(err)
-	}
+  Y, err := f.Col("Survived").Int()
+  if err != nil {
+    panic(err)
+  }
 
   // initialize Decision Tree
-	tree := Dtree.TreeInit(Y, f.Select([]string{"Age", "Fare"}), 2, 20)
+  tree := Dtree.TreeInit(Y, f.Select([]string{"Age", "Fare"}), 2, 20)
 
   // generate Tree
-	tree.Sprout()
+  tree.Sprout()
 
   // print Tree
-	tree.Print()
+  tree.Print()
 
   // Root
   //    | GINI impurity :  0.48238903404499056
@@ -81,15 +81,14 @@ func main() {
 
 
   // prepare a dataframe for prediction
-	df := dataframe.New(
+  df := dataframe.New(
     series.New([]string{"20", "15"}, series.String, "Age"),
-		series.New([]float64{53.025, 14.0}, series.Float, "Fare"),
-	)
+    series.New([]float64{53.025, 14.0}, series.Float, "Fare"),
+  )
 
   // predict
-	fmt.Println(tree.Predict(df)) // -> [1, 0]
+  fmt.Println(tree.Predict(df)) // -> [1, 0]
 
 }
-
 
 ```
