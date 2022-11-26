@@ -99,11 +99,21 @@ func (tree *DecisionTree) Sprout() {
 	tree.root.sprout()
 }
 
-func (tree *DecisionTree) Predict() string {
-	to := make(map[string]float64)
-	to["Age"] = 50.0
-	to["Fare"] = 37.8
-	return tree.root.predict(to)
+func (tree *DecisionTree) Predict(data dataframe.DataFrame) []string {
+
+	features := tree.root.data.features
+	var predictions []string
+
+	x, _ := data.Dims()
+	for i := 0; i < x; i++ {
+		nmap := make(map[string]float64)
+		for _, feature := range features {
+			nmap[feature] = data.Col(feature).Elem(i).Float()
+		}
+		predictions = append(predictions, tree.root.predict(nmap))
+	}
+
+	return predictions
 }
 
 func (tree *DecisionTree) Print() {
