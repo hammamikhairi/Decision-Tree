@@ -20,6 +20,10 @@ func ReadCSVToDF(path string) dataframe.DataFrame {
 }
 
 func test() {
+
+	// Load Data
+	// tested on the Titanic dataset from kaggle
+	// https://www.kaggle.com/competitions/titanic/data
 	f := ReadCSVToDF("Data/train.csv")
 
 	f = f.Select([]string{"Survived", "Age", "Fare", "Pclass", "SibSp"}).Filter(

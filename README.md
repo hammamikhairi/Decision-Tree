@@ -27,6 +27,8 @@ import (
 func main() {
 
   // Load data
+  // tested on the Titanic dataset from kaggle
+	// https://www.kaggle.com/competitions/titanic/data
   csvfile, err := os.Open("Data/train.csv")
   if err != nil {
     panic(err)
