@@ -18,7 +18,7 @@ import (
   "fmt"
   "os"
 
-  Dtree "DecisionTree/DTree"
+  DecisionTree "github.com/hammamikhairi/Decision-Tree"
 
   "github.com/go-gota/gota/dataframe"
   "github.com/go-gota/gota/series"
@@ -42,7 +42,7 @@ func main() {
   }
 
   // initialize Decision Tree
-  tree := Dtree.TreeInit(Y, f.Select([]string{"Age", "Fare"}), 2, 20)
+  tree := DecisionTree.TreeInit(Y, f.Select([]string{"Age", "Fare"}), 10, 20)
 
   // generate Tree
   tree.Sprout()
@@ -90,5 +90,14 @@ func main() {
   fmt.Println(tree.Predict(df)) // -> [1, 0]
 
 }
-
 ```
+
+## Installation
+
+```bash
+go get github.com/hammamikhairi/Decision-Tree
+```
+
+## LFSA 88
+
+This project is a part of [LFSA 88](https://github.com/hammamikhairi/LFSA-88).

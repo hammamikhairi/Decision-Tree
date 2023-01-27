@@ -1,4 +1,4 @@
-module DecisionTree
+module github.com/hammamikhairi/Decision-Tree
 
 go 1.19
 

@@ -1,4 +1,4 @@
-package Dtree
+package decisiontree
 
 import (
 	"fmt"
@@ -42,7 +42,6 @@ func countErr(Y []int, err error) Counter {
 func maxCount(counter Counter) string {
 
 	keys := make([]string, 0, len(counter))
-
 	for key := range counter {
 		keys = append(keys, key)
 	}

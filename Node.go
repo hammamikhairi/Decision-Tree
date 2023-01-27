@@ -1,4 +1,4 @@
-package Dtree
+package decisiontree
 
 import (
 	"fmt"
@@ -32,6 +32,10 @@ type node struct {
 }
 
 func NodeInit(Y []int, X dataframe.DataFrame, depth, maxDepth, minDfSplit int, rule string) *node {
+
+	if len(Y) == 0 {
+		return nil
+	}
 
 	genCount := count(Y)
 	var nd *node = &node{
@@ -142,7 +146,9 @@ func (nd *node) sprout() {
 			nd.minDfSplit,
 			fmt.Sprintf("%s <= %s", bestFeature, bestValue),
 		)
-		nd.left.sprout()
+		if nd.left != nil {
+			nd.left.sprout()
+		}
 
 		nd.right = NodeInit(
 			rightY,
@@ -152,7 +158,9 @@ func (nd *node) sprout() {
 			nd.minDfSplit,
 			fmt.Sprintf("%s > %s", bestFeature, bestValue),
 		)
-		nd.right.sprout()
+		if nd.right != nil {
+			nd.right.sprout()
+		}
 
 	}
 }
