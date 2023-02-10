@@ -11,10 +11,19 @@ import (
 
 type Counter map[string]int
 
+// The Decision Tree
 type DecisionTree struct {
 	root *node
 }
 
+// Initialize the Decision Tree
+//
+// Parameters
+// ----------
+// Y : []int : The target variable to predict
+// X : dataframe.DataFrame <float64 & float64> : The features
+// maxTreeDepth : int : The maximum depth of the tree
+// minDfSplit : int : The minimum number of samples to split a node
 func TreeInit(Y []int, X dataframe.DataFrame, maxTreeDepth, minDfSplit int) *DecisionTree {
 	tree := &DecisionTree{
 		root: NodeInit(Y, X, 0, maxTreeDepth, minDfSplit, "ROOT"),
@@ -94,10 +103,16 @@ func meth(col []float64) []float64 {
 	return methed
 }
 
+// Generate tree
 func (tree *DecisionTree) Sprout() {
 	tree.root.sprout()
 }
 
+// Predict the target variable for a given set of features
+//
+// Parameters
+// ----------
+// X : dataframe.DataFrame : The features
 func (tree *DecisionTree) Predict(data dataframe.DataFrame) []string {
 
 	features := tree.root.data.features
@@ -115,6 +130,7 @@ func (tree *DecisionTree) Predict(data dataframe.DataFrame) []string {
 	return predictions
 }
 
+// Print the tree in a human readable format
 func (tree *DecisionTree) Print() {
 	tree.root.print(1)
 }
